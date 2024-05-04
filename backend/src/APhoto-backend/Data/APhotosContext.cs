@@ -1,7 +1,7 @@
-﻿using APhoto_backend.Models;
+﻿using APhoto.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace APhoto_backend.Data;
+namespace APhoto.Api.Data;
 
 public class APhotosContext : DbContext
 {

@@ -1,6 +1,6 @@
-using APhoto_backend.Data;
-using APhoto_backend.Models;
-using APhoto_backend.Services.Repository;
+using APhoto.Api.Data;
+using APhoto.Api.Models;
+using APhoto.Api.Services.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

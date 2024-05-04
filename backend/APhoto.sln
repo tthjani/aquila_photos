@@ -3,12 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APhoto-backend", "APhoto-backend\APhoto-backend.csproj", "{8EDE82CC-9E4B-458E-BE10-72D48A40E0D3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{5BCF3148-6B31-4257-8D29-6B5F6B4FF5F0}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		AssemblyInfo.cs = AssemblyInfo.cs
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APhoto.Api", "src\APhoto-backend\APhoto.Api.csproj", "{DC4464ED-B2AE-49CF-9675-DBD6DD6EBB6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,10 +17,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8EDE82CC-9E4B-458E-BE10-72D48A40E0D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EDE82CC-9E4B-458E-BE10-72D48A40E0D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EDE82CC-9E4B-458E-BE10-72D48A40E0D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EDE82CC-9E4B-458E-BE10-72D48A40E0D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC4464ED-B2AE-49CF-9675-DBD6DD6EBB6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC4464ED-B2AE-49CF-9675-DBD6DD6EBB6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC4464ED-B2AE-49CF-9675-DBD6DD6EBB6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC4464ED-B2AE-49CF-9675-DBD6DD6EBB6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
