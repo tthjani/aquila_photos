@@ -32,4 +32,8 @@
     <ProjectReference Include="..\APhoto.Common\APhoto.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

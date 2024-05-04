@@ -1,5 +1,5 @@
-using APhoto.Common.Repositories;
 using APhoto.Data;
+using APhoto.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APhoto.Api.Controllers;
@@ -8,12 +8,12 @@ namespace APhoto.Api.Controllers;
 [Route("/api/[controller]/[action]")]
 public class OrderController : ControllerBase
 {
-    private readonly IOrdersRepository _ordersRepository;
-    private readonly IAcceptedOrdersRepository _acceptedOrdersRepository;
-    private readonly IDeclinedOrdersReporitory _declinedOrdersReporitory;
-    private readonly IFinishedOrdersRepository _finishedOrdersRepository;
+    private readonly IAbstractRepository<Order> _ordersRepository;
+    private readonly IAbstractRepository<AcceptedOrder> _acceptedOrdersRepository;
+    private readonly IAbstractRepository<DeclinedOrder> _declinedOrdersReporitory;
+    private readonly IAbstractRepository<FinishedOrder> _finishedOrdersRepository;
 
-    public OrderController(IOrdersRepository ordersRepository, IAcceptedOrdersRepository acceptedOrderRepository, IDeclinedOrdersReporitory declinedOrdersReporitory, IFinishedOrdersRepository finishedOrdersRepository)
+    public OrderController(IAbstractRepository<Order> ordersRepository, IAbstractRepository<AcceptedOrder> acceptedOrderRepository, IAbstractRepository<DeclinedOrder> declinedOrdersReporitory, IAbstractRepository<FinishedOrder> finishedOrdersRepository)
     {
         _ordersRepository = ordersRepository;
         _acceptedOrdersRepository = acceptedOrderRepository;
@@ -22,14 +22,14 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult GetAllOrders()
+    public async Task<IActionResult> GetAllOrders(CancellationToken cancellationToken)
     {
-        var respond = new { res = _ordersRepository.GetAllOrders() };
+        var respond = new { res = _ordersRepository.GetAll(cancellationToken) };
         return Ok(respond);
     }
     
     [HttpPost]
-    public ActionResult AddOrder(Order order)
+    public async Task<IActionResult> AddOrder(Order order, CancellationToken cancellationToken)
     {
         try
         {
@@ -38,57 +38,59 @@ public class OrderController : ControllerBase
                 return BadRequest("Please add a valid Order");
             }
             
-            _ordersRepository.Add(order);
+            await _ordersRepository.Create(order, cancellationToken);
             var response = new { res = order };
-            return Ok(response);
+            return Accepted(response);
         }
         
-        catch (Exception e)
+        catch
         {
             return StatusCode(500, "An error occured");
         }      
     }
     
     [HttpGet]
-    public ActionResult GetAllAcceptedOrders()
+    public async Task<IActionResult> GetAllAcceptedOrders(CancellationToken cancellationToken)
     {
-        var respond = new { res = _acceptedOrdersRepository.GetAllAcceptedOrders() };
+        var res = _acceptedOrdersRepository.GetAll(cancellationToken);
+        var respond = new { res };
         return Ok(respond);
     }
     
     [HttpPost]
-    public IActionResult AcceptOrder(uint orderId)
+    public async Task<IActionResult> AcceptOrder(uint orderId, CancellationToken cancellationToken)
     {
-        var order = _ordersRepository.GetOrderById(orderId);
+        var order = await _ordersRepository.GetOne(order => order.Id == orderId, cancellationToken);
         if (order == null)
         {
             return NotFound();
         }
         order.IsAccepted = true;
-        _ordersRepository.UpdateOrder(order);
+        await _ordersRepository.Update(order, cancellationToken);
 
         var acceptedOrder = new AcceptedOrder
         {
             OrderId = orderId,
-            AcceptanceDate = DateTime.Now
+            AcceptanceDate = DateTime.UtcNow
         };
         
-        _acceptedOrdersRepository.AddAcceptedOrder(acceptedOrder);
+        await _acceptedOrdersRepository.Create(acceptedOrder, cancellationToken);
 
-        return Ok();
+        return Accepted();
     }
     
     [HttpGet]
-    public ActionResult GetAllDeclinedOrders()
+    public async Task<IActionResult> GetAllDeclinedOrders(CancellationToken cancellationToken)
     {
-        var respond = new { res = _declinedOrdersReporitory.GetAllDeclinedOrders() };
+        var res = _declinedOrdersReporitory.GetAll(cancellationToken);
+        var respond = new { res };
         return Ok(respond);
     }
     
     [HttpPost]
-    public IActionResult DeclineOrder(uint orderId, string reason)
+    public async Task<IActionResult> DeclineOrder(uint orderId, string reason, CancellationToken cancellationToken)
     {
-        var order = _ordersRepository.GetOrderById(orderId);
+        var order = await _ordersRepository.GetOne(order => order.Id == orderId, cancellationToken);
         if (order == null)
         {
             return NotFound();
@@ -96,32 +98,39 @@ public class OrderController : ControllerBase
 
         var declinedOrder = new DeclinedOrder
         {
+            OrderId = orderId,
             Reason = reason
         };
-        _declinedOrdersReporitory.AddDeclinedOrder(declinedOrder);
+        await _declinedOrdersReporitory.Create(declinedOrder, cancellationToken);
 
-        return Ok();
+        return Accepted();
     }
     
     [HttpGet]
-    public ActionResult GetAllFinishedOrders()
+    public async Task<IActionResult> GetAllFinishedOrders(CancellationToken cancellationToken)
     {
-        var respond = new { res = _finishedOrdersRepository.GetAllFinishedOrders() };
+        var res = _finishedOrdersRepository.GetAll(cancellationToken);
+        var respond = new { res };
         return Ok(respond);
     }
     
     [HttpPost]
-    public IActionResult FinishOrder(uint accOrderId)
+    public async Task<IActionResult> FinishOrder(uint accOrderId, CancellationToken cancellationToken)
     {
-        var accOrder = _acceptedOrdersRepository.GetOrderById(accOrderId);
+        var accOrder = await _acceptedOrdersRepository.GetOne(acceptedOrder => acceptedOrder.Id == accOrderId, cancellationToken);
         if (accOrder == null)
         {
             return NotFound();
         }
 
-        var finishedOrder = new FinishedOrder();
-        _finishedOrdersRepository.AddFinishedOrder(finishedOrder);
+        var finishedOrder = new FinishedOrder
+        {
+            AcceptedId = accOrderId,
+            FinishDate = DateTime.UtcNow,
+            OrderId = accOrder.OrderId
+        };
+        await _finishedOrdersRepository.Create(finishedOrder, cancellationToken);
 
-        return Ok();
+        return Accepted();
     }
 }

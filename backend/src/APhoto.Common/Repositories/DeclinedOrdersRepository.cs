@@ -1,24 +1,12 @@
 ﻿using APhoto.Data;
-using Microsoft.EntityFrameworkCore;
+using APhoto.Infrastructure;
 
 namespace APhoto.Common.Repositories;
 
-public class DeclinedOrdersRepository : IDeclinedOrdersReporitory
+public class DeclinedOrdersRepository : AbstractRepository<DeclinedOrder>
 {
-    private readonly APhotosContext _context;
-
     public DeclinedOrdersRepository(APhotosContext context)
+        : base(context)
     {
-        _context = context;
-    }
-
-    public Task<List<DeclinedOrder>> GetAllDeclinedOrders()
-    {
-        return _context.DeclinedOrders.ToListAsync();
-    }
-    public void AddDeclinedOrder(DeclinedOrder declinedOrder)
-    {
-        _context.DeclinedOrders.Add(declinedOrder);
-        _context.SaveChanges();
     }
 }
