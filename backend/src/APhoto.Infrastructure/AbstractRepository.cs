@@ -1,13 +1,12 @@
-﻿using APhoto.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace APhoto.Infrastructure
 {
-    public abstract class AbstractRepository<T>(APhotosContext context) : IAbstractRepository<T>
+    public abstract class AbstractRepository<T>(DbContext context) : IAbstractRepository<T>
         where T : class
     {
-        protected readonly APhotosContext _context = context;
+        protected readonly DbContext _context = context;
 
         public async IAsyncEnumerable<T> GetAllAsync(CancellationToken cancellationToken)
         {
