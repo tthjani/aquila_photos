@@ -1,34 +1,12 @@
 ﻿using APhoto.Data;
-using Microsoft.EntityFrameworkCore;
+using APhoto.Infrastructure;
 
 namespace APhoto.Common.Repositories;
 
-public class AcceptedOrdersRepository : IAcceptedOrdersRepository
+public class AcceptedOrdersRepository : AbstractRepository<AcceptedOrder>
 {
-    private readonly APhotosContext _context;
-
     public AcceptedOrdersRepository(APhotosContext context)
+        : base(context)
     {
-        _context = context;
-    }
-
-    public Task<List<AcceptedOrder>> GetAllAcceptedOrders()
-    {
-        return _context.AcceptedOrders.ToListAsync();
-    }
-    public void AddAcceptedOrder(AcceptedOrder acceptedOrder)
-    {
-        _context.AcceptedOrders.Add(acceptedOrder);
-        _context.SaveChanges();
-    }
-
-    public void FinishOrder(AcceptedOrder order)
-    {
-        order.IsFinished = true;
-    }
-
-    public AcceptedOrder GetOrderById(uint orderId)
-    {
-        return _context.AcceptedOrders.FirstOrDefault(o => o.Id == orderId);
     }
 }

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\APhoto.Infrastructure\APhoto.Infrastructure.csproj" />
+    <ProjectReference Include="..\APhoto.Data\APhoto.Data.csproj" />
   </ItemGroup>
 
 </Project>

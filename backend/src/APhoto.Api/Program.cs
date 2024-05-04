@@ -1,5 +1,7 @@
+using APhoto.Common;
 using APhoto.Common.Repositories;
 using APhoto.Data;
+using APhoto.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,10 +14,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
-builder.Services.AddScoped<IAcceptedOrdersRepository, AcceptedOrdersRepository>();
-builder.Services.AddScoped<IDeclinedOrdersReporitory, DeclinedOrdersRepository>();
-builder.Services.AddScoped<IFinishedOrdersRepository, FinishedOrdersRepository>();
+builder.Services.AddScoped<IAbstractRepository<Order>, OrdersRepository>();
+builder.Services.AddScoped<IAbstractRepository<AcceptedOrder>, AcceptedOrdersRepository>();
+builder.Services.AddScoped<IAbstractRepository<DeclinedOrder>, DeclinedOrdersRepository>();
+builder.Services.AddScoped<IAbstractRepository<FinishedOrder>, FinishedOrdersRepository>();
 
 var app = builder.Build();
 

@@ -1,24 +1,12 @@
 ﻿using APhoto.Data;
-using Microsoft.EntityFrameworkCore;
+using APhoto.Infrastructure;
 
 namespace APhoto.Common.Repositories;
 
-public class FinishedOrdersRepository : IFinishedOrdersRepository
+public class FinishedOrdersRepository : AbstractRepository<FinishedOrder>
 {
-    private readonly APhotosContext _context;
-
     public FinishedOrdersRepository(APhotosContext context)
+        : base(context)
     {
-        _context = context;
-    }
-
-    public Task<List<FinishedOrder>> GetAllFinishedOrders()
-    {
-        return _context.FinishedOrders.ToListAsync();
-    }
-    public void AddFinishedOrder(FinishedOrder finishedOrder)
-    {
-        _context.FinishedOrders.Add(finishedOrder);
-        _context.SaveChanges();
     }
 }
