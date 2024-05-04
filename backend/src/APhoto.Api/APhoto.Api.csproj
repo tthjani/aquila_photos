@@ -7,7 +7,7 @@
     <RootNamespace>APhoto.Api</RootNamespace>
     <Version>$(AssemblyVersion)</Version>
     <FileVersion>$(AssemblyFileVersion)</FileVersion>
-    <UserSecretsId>$(UserSecretsId)</UserSecretsId>
+    <UserSecretsId>d8258b82-aa4d-431b-864c-00d883d4ce06</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
