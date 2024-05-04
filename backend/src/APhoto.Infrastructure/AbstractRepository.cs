@@ -9,7 +9,7 @@ namespace APhoto.Infrastructure
     {
         protected readonly APhotosContext _context = context;
 
-        public async IAsyncEnumerable<T> GetAll(CancellationToken cancellationToken)
+        public async IAsyncEnumerable<T> GetAllAsync(CancellationToken cancellationToken)
         {
             var items = _context.Set<T>().AsAsyncEnumerable().WithCancellation(cancellationToken);
             await foreach (var item in items)
@@ -18,22 +18,22 @@ namespace APhoto.Infrastructure
             }
         }
 
-        public async Task<T?> GetOne(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
+        public async Task<T?> GetOneAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
             => await _context.Set<T>().FirstOrDefaultAsync(predicate, cancellationToken);
 
-        public async Task Create(T entity, CancellationToken cancellationToken)
+        public async Task CreateAsync(T entity, CancellationToken cancellationToken)
         {
             _context.Set<T>().Add(entity);
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task Update(T entity, CancellationToken cancellationToken)
+        public async Task UpdateAsync(T entity, CancellationToken cancellationToken)
         {
             var entry = _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task Delete(T entity, CancellationToken cancellationToken)
+        public async Task DeleteAsync(T entity, CancellationToken cancellationToken)
         {
             _context.Set<T>().Remove(entity);
             await _context.SaveChangesAsync(cancellationToken);
