@@ -1,8 +1,7 @@
-﻿using APhoto.Api.Data;
-using APhoto.Api.Models;
+﻿using APhoto.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace APhoto.Api.Services.Repository;
+namespace APhoto.Common.Repositories;
 
 public class FinishedOrdersRepository : IFinishedOrdersRepository
 {
@@ -12,7 +11,7 @@ public class FinishedOrdersRepository : IFinishedOrdersRepository
     {
         _context = context;
     }
-    
+
     public Task<List<FinishedOrder>> GetAllFinishedOrders()
     {
         return _context.FinishedOrders.ToListAsync();

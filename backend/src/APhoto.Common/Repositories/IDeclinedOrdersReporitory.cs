@@ -1,6 +1,6 @@
-﻿using APhoto.Api.Models;
+﻿using APhoto.Data;
 
-namespace APhoto.Api.Services.Repository;
+namespace APhoto.Common.Repositories;
 
 public interface IDeclinedOrdersReporitory
 {
