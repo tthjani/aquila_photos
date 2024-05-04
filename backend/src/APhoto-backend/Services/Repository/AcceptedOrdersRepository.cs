@@ -1,8 +1,8 @@
-﻿using APhoto_backend.Data;
-using APhoto_backend.Models;
+﻿using APhoto.Api.Data;
+using APhoto.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace APhoto_backend.Services.Repository;
+namespace APhoto.Api.Services.Repository;
 
 public class AcceptedOrdersRepository : IAcceptedOrdersRepository
 {

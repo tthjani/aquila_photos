@@ -1,4 +1,4 @@
-﻿namespace APhoto_backend.Models;
+﻿namespace APhoto.Api.Models;
 
 public class FinishedOrder
 {

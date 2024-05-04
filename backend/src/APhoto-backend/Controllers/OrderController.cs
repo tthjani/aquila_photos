@@ -1,8 +1,8 @@
-using APhoto_backend.Models;
-using APhoto_backend.Services.Repository;
+using APhoto.Api.Models;
+using APhoto.Api.Services.Repository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APhoto_backend.Controllers;
+namespace APhoto.Api.Controllers;
 
 [ApiController]
 [Route("/api/[controller]/[action]")]
