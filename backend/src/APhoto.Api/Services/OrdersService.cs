@@ -7,7 +7,7 @@ using AutoMapper;
 
 namespace APhoto.Api.Services
 {
-    public class OrderService : IOrdersService
+    public class OrdersService : IOrdersService
     {
         private readonly IMapper _mapper;
         private readonly IAbstractRepository<Order> _ordersRepository;
@@ -15,7 +15,7 @@ namespace APhoto.Api.Services
         private readonly IAbstractRepository<DeclinedOrder> _declinedOrdersReporitory;
         private readonly IAbstractRepository<FinishedOrder> _finishedOrdersRepository;
 
-        public OrderService(
+        public OrdersService(
             IMapper mapper,
             IAbstractRepository<Order> ordersRepository,
             IAbstractRepository<AcceptedOrder> acceptedOrderRepository,
@@ -37,6 +37,8 @@ namespace APhoto.Api.Services
         public async Task<Order> CreateOrderAsync(AddOrderRequestV1 request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<Order>(request);
+
+            entity.Date = DateTime.UtcNow;
 
             await _ordersRepository.CreateAsync(entity, cancellationToken);
 
@@ -85,7 +87,8 @@ namespace APhoto.Api.Services
             var declinedOrder = new DeclinedOrder
             {
                 OrderId = request.OrderId,
-                Reason = request.Reason
+                Reason = request.Reason,
+                DecDate = DateTime.UtcNow
             };
 
             await _declinedOrdersReporitory.CreateAsync(declinedOrder, cancellationToken);

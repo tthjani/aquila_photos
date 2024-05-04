@@ -1,3 +1,4 @@
+using APhoto.Api.Services;
 using APhoto.Common.Repositories;
 using APhoto.Data;
 using APhoto.Infrastructure;
@@ -18,6 +19,7 @@ builder.Services.AddScoped<IAbstractRepository<Order>, OrdersRepository>();
 builder.Services.AddScoped<IAbstractRepository<AcceptedOrder>, AcceptedOrdersRepository>();
 builder.Services.AddScoped<IAbstractRepository<DeclinedOrder>, DeclinedOrdersRepository>();
 builder.Services.AddScoped<IAbstractRepository<FinishedOrder>, FinishedOrdersRepository>();
+builder.Services.AddScoped<IOrdersService, OrdersService>();
 
 var app = builder.Build();
 
