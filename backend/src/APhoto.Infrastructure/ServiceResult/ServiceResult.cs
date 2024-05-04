@@ -1,18 +1,16 @@
 ﻿namespace APhoto.Infrastructure.ServiceResult
 {
-    public class ServiceResult<T> : IServiceResult<T>
+    public class ServiceResult<T> : ServiceResult, IServiceResult<T>
         where T : class
     {
         protected ServiceResult()
+            : base()
         {
         }
 
         public T? Value { get; set; }
-        public string? Reason { get; set; }
-        public bool IsSuccess { get; set; }
-        public bool IsFailure { get; set; }
 
-        public static IServiceResult<T> Fail(string reason)
+        public static new IServiceResult<T> Fail(string reason)
         {
             return new ServiceResult<T>
             {
@@ -23,7 +21,7 @@
             };
         }
 
-        public static IServiceResult<T> Success(T value)
+        public static new IServiceResult<T> Success(T value)
         {
             return new ServiceResult<T>
             {
