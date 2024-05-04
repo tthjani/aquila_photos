@@ -2,6 +2,8 @@ using APhoto.Api.Services;
 using APhoto.Common.Repositories;
 using APhoto.Data;
 using APhoto.Infrastructure;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddScoped<IAbstractRepository<Order>, OrdersRepository>();
 builder.Services.AddScoped<IAbstractRepository<AcceptedOrder>, AcceptedOrdersRepository>();
 builder.Services.AddScoped<IAbstractRepository<DeclinedOrder>, DeclinedOrdersRepository>();
