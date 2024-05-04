@@ -1,5 +1,6 @@
+using APhoto.Api.Requests;
+using APhoto.Api.Services;
 using APhoto.Data;
-using APhoto.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APhoto.Api.Controllers;
@@ -8,41 +9,28 @@ namespace APhoto.Api.Controllers;
 [Route("/api/[controller]/[action]")]
 public class OrderController : ControllerBase
 {
-    private readonly IAbstractRepository<Order> _ordersRepository;
-    private readonly IAbstractRepository<AcceptedOrder> _acceptedOrdersRepository;
-    private readonly IAbstractRepository<DeclinedOrder> _declinedOrdersReporitory;
-    private readonly IAbstractRepository<FinishedOrder> _finishedOrdersRepository;
+    private readonly IOrdersService _ordersService;
 
-    public OrderController(IAbstractRepository<Order> ordersRepository, IAbstractRepository<AcceptedOrder> acceptedOrderRepository, IAbstractRepository<DeclinedOrder> declinedOrdersReporitory, IAbstractRepository<FinishedOrder> finishedOrdersRepository)
+    public OrderController(IOrdersService ordersService)
     {
-        _ordersRepository = ordersRepository;
-        _acceptedOrdersRepository = acceptedOrderRepository;
-        _declinedOrdersReporitory = declinedOrdersReporitory;
-        _finishedOrdersRepository = finishedOrdersRepository;
+        _ordersService = ordersService;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllOrders(CancellationToken cancellationToken)
     {
-        var respond = new { res = _ordersRepository.GetAll(cancellationToken) };
-        return Ok(respond);
+        var result = _ordersService.GetOrdersAsync(cancellationToken);
+        return Ok(result);
     }
     
     [HttpPost]
-    public async Task<IActionResult> AddOrder(Order order, CancellationToken cancellationToken)
+    public async Task<IActionResult> AddOrder(AddOrderRequestV1 request, CancellationToken cancellationToken)
     {
         try
         {
-            if (order == null)
-            {
-                return BadRequest("Please add a valid Order");
-            }
-            
-            await _ordersRepository.Create(order, cancellationToken);
-            var response = new { res = order };
-            return Accepted(response);
+            var result = await _ordersService.CreateOrderAsync(request, cancellationToken);
+            return Accepted(result);
         }
-        
         catch
         {
             return StatusCode(500, "An error occured");
@@ -52,29 +40,19 @@ public class OrderController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllAcceptedOrders(CancellationToken cancellationToken)
     {
-        var res = _acceptedOrdersRepository.GetAll(cancellationToken);
-        var respond = new { res };
-        return Ok(respond);
+        var result = _ordersService.GetAcceptedOrdersAsync(cancellationToken);
+        return Ok(result);
     }
     
     [HttpPost]
-    public async Task<IActionResult> AcceptOrder(uint orderId, CancellationToken cancellationToken)
+    public async Task<IActionResult> AcceptOrder(AcceptOrderRequestV1 request, CancellationToken cancellationToken)
     {
-        var order = await _ordersRepository.GetOne(order => order.Id == orderId, cancellationToken);
-        if (order == null)
-        {
-            return NotFound();
-        }
-        order.IsAccepted = true;
-        await _ordersRepository.Update(order, cancellationToken);
+        var result = await _ordersService.AcceptOrderAsync(request, cancellationToken);
 
-        var acceptedOrder = new AcceptedOrder
+        if(result.IsFailure)
         {
-            OrderId = orderId,
-            AcceptanceDate = DateTime.UtcNow
-        };
-        
-        await _acceptedOrdersRepository.Create(acceptedOrder, cancellationToken);
+            return Problem(result.Reason);
+        }
 
         return Accepted();
     }
@@ -82,26 +60,19 @@ public class OrderController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllDeclinedOrders(CancellationToken cancellationToken)
     {
-        var res = _declinedOrdersReporitory.GetAll(cancellationToken);
-        var respond = new { res };
-        return Ok(respond);
+        var result = _ordersService.GetDeclinedOrdersAsync(cancellationToken);
+        return Ok(result);
     }
     
     [HttpPost]
-    public async Task<IActionResult> DeclineOrder(uint orderId, string reason, CancellationToken cancellationToken)
+    public async Task<IActionResult> DeclineOrder(DeclineOrderRequestV1 request, CancellationToken cancellationToken)
     {
-        var order = await _ordersRepository.GetOne(order => order.Id == orderId, cancellationToken);
-        if (order == null)
-        {
-            return NotFound();
-        }
+        var result = await _ordersService.DeclineOrderAsync(request, cancellationToken);
 
-        var declinedOrder = new DeclinedOrder
+        if (result.IsFailure)
         {
-            OrderId = orderId,
-            Reason = reason
-        };
-        await _declinedOrdersReporitory.Create(declinedOrder, cancellationToken);
+            return Problem(result.Reason);
+        }
 
         return Accepted();
     }
@@ -109,27 +80,19 @@ public class OrderController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllFinishedOrders(CancellationToken cancellationToken)
     {
-        var res = _finishedOrdersRepository.GetAll(cancellationToken);
-        var respond = new { res };
-        return Ok(respond);
+        var result = _ordersService.GetFinishedOrdersAsync(cancellationToken);
+        return Ok(result);
     }
     
     [HttpPost]
-    public async Task<IActionResult> FinishOrder(uint accOrderId, CancellationToken cancellationToken)
+    public async Task<IActionResult> FinishOrder(FinishOrderRequestV1 request, CancellationToken cancellationToken)
     {
-        var accOrder = await _acceptedOrdersRepository.GetOne(acceptedOrder => acceptedOrder.Id == accOrderId, cancellationToken);
-        if (accOrder == null)
-        {
-            return NotFound();
-        }
+        var result = await _ordersService.FinishOrderAsync(request, cancellationToken);
 
-        var finishedOrder = new FinishedOrder
+        if (result.IsFailure)
         {
-            AcceptedId = accOrderId,
-            FinishDate = DateTime.UtcNow,
-            OrderId = accOrder.OrderId
-        };
-        await _finishedOrdersRepository.Create(finishedOrder, cancellationToken);
+            return Problem(result.Reason);
+        }
 
         return Accepted();
     }
