@@ -1,9 +1,7 @@
-﻿
-using APhoto.Api.Data;
-using APhoto.Api.Models;
+﻿using APhoto.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace APhoto.Api.Services.Repository;
+namespace APhoto.Common.Repositories;
 
 public class OrdersRepository : IOrdersRepository
 {
@@ -13,7 +11,7 @@ public class OrdersRepository : IOrdersRepository
     {
         _context = context;
     }
-    
+
     public Task<List<Order>> GetAllOrders()
     {
         return _context.Orders.ToListAsync();

@@ -1,5 +1,4 @@
-﻿
-namespace APhoto.Api.Models;
+﻿namespace APhoto.Data;
 
 public class Holiday
 {

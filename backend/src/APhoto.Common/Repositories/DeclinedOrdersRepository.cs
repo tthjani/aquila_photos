@@ -1,8 +1,7 @@
-﻿using APhoto.Api.Data;
-using APhoto.Api.Models;
+﻿using APhoto.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace APhoto.Api.Services.Repository;
+namespace APhoto.Common.Repositories;
 
 public class DeclinedOrdersRepository : IDeclinedOrdersReporitory
 {
@@ -12,7 +11,7 @@ public class DeclinedOrdersRepository : IDeclinedOrdersReporitory
     {
         _context = context;
     }
-    
+
     public Task<List<DeclinedOrder>> GetAllDeclinedOrders()
     {
         return _context.DeclinedOrders.ToListAsync();

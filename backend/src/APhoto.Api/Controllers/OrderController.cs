@@ -1,5 +1,5 @@
-using APhoto.Api.Models;
-using APhoto.Api.Services.Repository;
+using APhoto.Common.Repositories;
+using APhoto.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APhoto.Api.Controllers;

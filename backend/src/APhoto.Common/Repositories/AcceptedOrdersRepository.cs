@@ -1,8 +1,7 @@
-﻿using APhoto.Api.Data;
-using APhoto.Api.Models;
+﻿using APhoto.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace APhoto.Api.Services.Repository;
+namespace APhoto.Common.Repositories;
 
 public class AcceptedOrdersRepository : IAcceptedOrdersRepository
 {
@@ -12,7 +11,7 @@ public class AcceptedOrdersRepository : IAcceptedOrdersRepository
     {
         _context = context;
     }
-    
+
     public Task<List<AcceptedOrder>> GetAllAcceptedOrders()
     {
         return _context.AcceptedOrders.ToListAsync();
@@ -22,12 +21,12 @@ public class AcceptedOrdersRepository : IAcceptedOrdersRepository
         _context.AcceptedOrders.Add(acceptedOrder);
         _context.SaveChanges();
     }
-    
+
     public void FinishOrder(AcceptedOrder order)
     {
         order.IsFinished = true;
     }
-    
+
     public AcceptedOrder GetOrderById(uint orderId)
     {
         return _context.AcceptedOrders.FirstOrDefault(o => o.Id == orderId);
