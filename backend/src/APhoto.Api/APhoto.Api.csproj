@@ -7,6 +7,7 @@
     <RootNamespace>APhoto.Api</RootNamespace>
     <Version>$(AssemblyVersion)</Version>
     <FileVersion>$(AssemblyFileVersion)</FileVersion>
+    <UserSecretsId>$(UserSecretsId)</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
