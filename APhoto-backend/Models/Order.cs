@@ -9,6 +9,6 @@ public class Order
     public string ClientEmail { get; set; }
     public string FbUrl { get; set; }
     public string Message { get; set; }
-    public bool IsAccepted { get; } = false;
-    public bool IsDeclined { get; } = false;
+    public bool IsAccepted { get; set; }
+    public bool IsDeclined { get; set; }
 }
