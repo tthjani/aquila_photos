@@ -16,7 +16,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APhoto.Data", "src\APhoto.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APhoto.Common", "src\APhoto.Common\APhoto.Common.csproj", "{3655E96A-C8D2-46C1-B65A-53D3D8E53D74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APhoto.Infrastructure", "src\APhoto.Infrastructure\APhoto.Infrastructure.csproj", "{7AC7573D-201C-4417-AFFD-D15049CD593F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APhoto.Infrastructure", "src\APhoto.Infrastructure\APhoto.Infrastructure.csproj", "{7AC7573D-201C-4417-AFFD-D15049CD593F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0D8BD98B-8C31-4427-8765-151414A2C0BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APhoto.Infrastructure.Test.Unit", "tests\APhoto.Infrastructure.Test.Unit\APhoto.Infrastructure.Test.Unit.csproj", "{5E00C583-DD3B-42FB-AF76-9FD02037CF90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,9 +44,16 @@ Global
 		{7AC7573D-201C-4417-AFFD-D15049CD593F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AC7573D-201C-4417-AFFD-D15049CD593F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AC7573D-201C-4417-AFFD-D15049CD593F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E00C583-DD3B-42FB-AF76-9FD02037CF90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E00C583-DD3B-42FB-AF76-9FD02037CF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E00C583-DD3B-42FB-AF76-9FD02037CF90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E00C583-DD3B-42FB-AF76-9FD02037CF90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5E00C583-DD3B-42FB-AF76-9FD02037CF90} = {0D8BD98B-8C31-4427-8765-151414A2C0BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {59D26CCE-5DE0-4AE1-A629-E440F49E5333}

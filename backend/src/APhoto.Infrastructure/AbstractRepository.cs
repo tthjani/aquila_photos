@@ -18,7 +18,10 @@ namespace APhoto.Infrastructure
         }
 
         public async Task<T?> GetOneAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
-            => await _context.Set<T>().FirstOrDefaultAsync(predicate, cancellationToken);
+            => await _context.Set<T>().SingleOrDefaultAsync(predicate, cancellationToken);
+
+        public IQueryable<T> GetMany(Expression<Func<T, bool>> predicate)
+            => _context.Set<T>().Where(predicate);
 
         public async Task CreateAsync(T entity, CancellationToken cancellationToken)
         {
