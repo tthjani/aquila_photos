@@ -1,5 +1,4 @@
 ﻿using APhoto.Infrastructure.Test.Unit.Utility;
-using FluentAssertions;
 using ServiceResultNs = APhoto.Infrastructure.ServiceResult;
 
 namespace APhoto.Infrastructure.Test.Unit.ServiceResult

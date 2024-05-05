@@ -34,6 +34,8 @@
 
   <ItemGroup>
     <Using Include="AutoFixture.Xunit2" />
+    <Using Include="Bogus" />
+    <Using Include="FluentAssertions" />
     <Using Include="Moq" />
     <Using Include="Xunit" />
   </ItemGroup>
