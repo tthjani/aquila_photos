@@ -1,5 +1,4 @@
 ﻿using APhoto.Api.Requests;
-using APhoto.Common.Repositories;
 using APhoto.Data;
 using APhoto.Infrastructure;
 using APhoto.Infrastructure.ServiceResult;

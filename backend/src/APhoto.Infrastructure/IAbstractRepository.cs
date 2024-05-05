@@ -9,6 +9,8 @@ namespace APhoto.Infrastructure
 
         Task<T?> GetOneAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
 
+        IQueryable<T> GetMany(Expression<Func<T, bool>> predicate);
+
         Task CreateAsync(T entity, CancellationToken cancellationToken);
 
         Task UpdateAsync(T entity, CancellationToken cancellationToken);
