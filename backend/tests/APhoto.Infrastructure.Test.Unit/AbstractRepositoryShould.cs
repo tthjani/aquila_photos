@@ -1,8 +1,5 @@
 ﻿using APhoto.Infrastructure.Test.Unit.Utility;
-using Bogus;
-using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace APhoto.Infrastructure.Test.Unit
 {
