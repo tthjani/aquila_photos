@@ -10,10 +10,9 @@ namespace APhoto.Api.Requests.Validators
                 .NotEmpty()
                 .MaximumLength(50);
 
-            RuleFor(x => x.ClientEmail)
+            RuleFor(x => x.ContactInformation)
                 .NotEmpty()
-                .MaximumLength(50)
-                .Matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+                .MaximumLength(50);
 
             RuleFor(x => x.Message)
                 .NotEmpty()
@@ -23,7 +22,7 @@ namespace APhoto.Api.Requests.Validators
                 .NotEmpty()
                 .MaximumLength(100);
 
-            RuleFor(x => x.Type)
+            RuleFor(x => x.OrderType)
                 .NotEmpty()
                 .MaximumLength(50);
         }

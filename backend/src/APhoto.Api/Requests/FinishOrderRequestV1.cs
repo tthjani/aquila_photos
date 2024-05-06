@@ -2,6 +2,6 @@
 {
     public record FinishOrderRequestV1
     {
-        public required uint AcceptedOrderId { get; set; }
+        public required uint OrderId { get; set; }
     }
 }
