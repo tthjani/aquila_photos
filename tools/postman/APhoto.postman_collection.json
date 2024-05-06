@@ -10,6 +10,45 @@
 			"name": "Get",
 			"item": [
 				{
+					"name": "Status",
+					"item": [
+						{
+							"name": "Version",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ServiceUrl}}/version",
+									"host": [
+										"{{ServiceUrl}}"
+									],
+									"path": [
+										"version"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ping",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ServiceUrl}}/ping",
+									"host": [
+										"{{ServiceUrl}}"
+									],
+									"path": [
+										"ping"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "GetAllOrders",
 					"request": {
 						"method": "GET",
