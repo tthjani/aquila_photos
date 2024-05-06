@@ -20,7 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APhoto.Infrastructure", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0D8BD98B-8C31-4427-8765-151414A2C0BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APhoto.Infrastructure.Test.Unit", "tests\APhoto.Infrastructure.Test.Unit\APhoto.Infrastructure.Test.Unit.csproj", "{5E00C583-DD3B-42FB-AF76-9FD02037CF90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APhoto.Infrastructure.Test.Unit", "tests\APhoto.Infrastructure.Test.Unit\APhoto.Infrastructure.Test.Unit.csproj", "{5E00C583-DD3B-42FB-AF76-9FD02037CF90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APhoto.Settings", "src\APhoto.Settings\APhoto.Settings.csproj", "{236E4BAA-0F9F-497A-8F0E-C4E511E410F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,10 @@ Global
 		{5E00C583-DD3B-42FB-AF76-9FD02037CF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E00C583-DD3B-42FB-AF76-9FD02037CF90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E00C583-DD3B-42FB-AF76-9FD02037CF90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{236E4BAA-0F9F-497A-8F0E-C4E511E410F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{236E4BAA-0F9F-497A-8F0E-C4E511E410F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{236E4BAA-0F9F-497A-8F0E-C4E511E410F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{236E4BAA-0F9F-497A-8F0E-C4E511E410F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,11 +8,12 @@ namespace APhoto.Api.Controllers;
 
 [ApiController]
 [Route("/api/[controller]/[action]")]
-public class OrderController : ControllerBase
+public class OrderController : CustomControllerBase<OrderController>
 {
     private readonly IOrdersService _ordersService;
 
-    public OrderController(IOrdersService ordersService)
+    public OrderController(ILogger<OrderController> logger, IOrdersService ordersService)
+        : base(logger)
     {
         _ordersService = ordersService;
     }
