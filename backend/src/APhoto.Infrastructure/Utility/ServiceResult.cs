@@ -1,4 +1,4 @@
-﻿namespace APhoto.Infrastructure.ServiceResult
+﻿namespace APhoto.Infrastructure.Utility
 {
     public class ServiceResult<T> : ServiceResult, IServiceResult<T>
         where T : class

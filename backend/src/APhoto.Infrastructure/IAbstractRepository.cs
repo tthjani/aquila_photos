@@ -1,5 +1,7 @@
-﻿using System;
+﻿using APhoto.Infrastructure.Utility;
+using System;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 namespace APhoto.Infrastructure
 {
@@ -7,14 +9,14 @@ namespace APhoto.Infrastructure
     {
         IAsyncEnumerable<T> GetAllAsync(CancellationToken cancellationToken);
 
-        Task<T?> GetOneAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
+        Task<IServiceResult<T>> GetOneAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
 
-        IQueryable<T> GetMany(Expression<Func<T, bool>> predicate);
+        IAsyncEnumerable<T> GetManyAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
 
-        Task CreateAsync(T entity, CancellationToken cancellationToken);
+        Task<IServiceResult> CreateAsync(T entity, CancellationToken cancellationToken);
 
-        Task UpdateAsync(T entity, CancellationToken cancellationToken);
+        Task<IServiceResult> UpdateAsync(T entity, CancellationToken cancellationToken);
 
-        Task DeleteAsync(T entity, CancellationToken cancellationToken);
+        Task<IServiceResult> DeleteAsync(T entity, CancellationToken cancellationToken);
     }
 }

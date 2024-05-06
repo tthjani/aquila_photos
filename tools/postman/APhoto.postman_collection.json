@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "e7e259c2-1fba-4f6b-a0b7-953ccb7e6930",
+		"name": "APhoto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5801954"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"item": [
+				{
+					"name": "GetAllOrders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ServiceUrl}}/api/Order/GetAllOrders",
+							"host": [
+								"{{ServiceUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"GetAllOrders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllAcceptedOrders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ServiceUrl}}/api/Order/GetAllAcceptedOrders",
+							"host": [
+								"{{ServiceUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"GetAllAcceptedOrders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllDeclinedOrders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ServiceUrl}}/api/Order/GetAllDeclinedOrders",
+							"host": [
+								"{{ServiceUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"GetAllDeclinedOrders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllFinishedOrders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ServiceUrl}}/api/Order/GetAllFinishedOrders",
+							"host": [
+								"{{ServiceUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"GetAllFinishedOrders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Send",
+			"item": [
+				{
+					"name": "AddOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OrderType\": \"Test order type\",\r\n    \"ClientName\": \"John Doe\",\r\n    \"ContactInformation\": \".fancydiscordname\",\r\n    \"FbUrl\": \"https://face.gta.world/johndoe\",\r\n    \"Message\": \"Test message\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ServiceUrl}}/api/Order/AddOrder",
+							"host": [
+								"{{ServiceUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"AddOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AcceptOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OrderId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ServiceUrl}}/api/Order/AcceptOrder",
+							"host": [
+								"{{ServiceUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"AcceptOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeclineOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OrderId\": 3,\r\n    \"Reason\": \"You are crazy to think, I'm going to make that piece of crap.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ServiceUrl}}/api/Order/DeclineOrder",
+							"host": [
+								"{{ServiceUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"DeclineOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FinishOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OrderId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ServiceUrl}}/api/Order/FinishOrder",
+							"host": [
+								"{{ServiceUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"FinishOrder"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

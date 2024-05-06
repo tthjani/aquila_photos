@@ -6,7 +6,7 @@ namespace APhoto.Api.Requests.Validators
     {
         public FinishOrderRequestV1Validator()
         {
-            RuleFor(x => x.AcceptedOrderId)
+            RuleFor(x => x.OrderId)
                 .NotEmpty();
         }
     }

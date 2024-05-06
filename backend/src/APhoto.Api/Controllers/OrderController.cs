@@ -18,15 +18,14 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(Ok<IEnumerable<Order>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllOrders(CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(IAsyncEnumerable<Order>), StatusCodes.Status200OK)]
+    public IAsyncEnumerable<Order> GetAllOrders(CancellationToken cancellationToken)
     {
-        var result = _ordersService.GetOrdersAsync(cancellationToken);
-        return Ok(result);
+        return _ordersService.GetOrdersAsync(cancellationToken);
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(Accepted<Order>), StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(Accepted), StatusCodes.Status202Accepted)]
     public async Task<IActionResult> AddOrder(AddOrderRequestV1 request, CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid)
@@ -35,18 +34,24 @@ public class OrderController : ControllerBase
         }
 
         var result = await _ordersService.CreateOrderAsync(request, cancellationToken);
-        return Accepted(result);
+
+        if (result.IsFailure)
+        {
+            return Problem(result.Reason);
+        }
+
+        return Accepted();
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(Ok<IEnumerable<AcceptedOrder>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllAcceptedOrders(CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(IAsyncEnumerable<Order>), StatusCodes.Status200OK)]
+    public IAsyncEnumerable<Order> GetAllAcceptedOrders(CancellationToken cancellationToken)
     {
-        var result = _ordersService.GetAcceptedOrdersAsync(cancellationToken);
-        return Ok(result);
+        return _ordersService.GetAcceptedOrdersAsync(cancellationToken);
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AcceptOrder([FromBody] AcceptOrderRequestV1 request, CancellationToken cancellationToken)
@@ -60,21 +65,21 @@ public class OrderController : ControllerBase
 
         if (result.IsFailure)
         {
-            return Problem(result.Reason);
+            return ValidationProblem(result.Reason);
         }
 
         return Accepted();
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(Ok<IEnumerable<DeclinedOrder>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllDeclinedOrders(CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(IAsyncEnumerable<Order>), StatusCodes.Status200OK)]
+    public IAsyncEnumerable<Order> GetAllDeclinedOrders(CancellationToken cancellationToken)
     {
-        var result = _ordersService.GetDeclinedOrdersAsync(cancellationToken);
-        return Ok(result);
+        return _ordersService.GetDeclinedOrdersAsync(cancellationToken);
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeclineOrder(DeclineOrderRequestV1 request, CancellationToken cancellationToken)
@@ -88,21 +93,21 @@ public class OrderController : ControllerBase
 
         if (result.IsFailure)
         {
-            return Problem(result.Reason);
+            return ValidationProblem(result.Reason);
         }
 
         return Accepted();
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(Ok<IEnumerable<FinishedOrder>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllFinishedOrders(CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(IAsyncEnumerable<Order>), StatusCodes.Status200OK)]
+    public IAsyncEnumerable<Order> GetAllFinishedOrders(CancellationToken cancellationToken)
     {
-        var result = _ordersService.GetFinishedOrdersAsync(cancellationToken);
-        return Ok(result);
+        return _ordersService.GetFinishedOrdersAsync(cancellationToken);
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> FinishOrder(FinishOrderRequestV1 request, CancellationToken cancellationToken)
@@ -116,7 +121,7 @@ public class OrderController : ControllerBase
 
         if (result.IsFailure)
         {
-            return Problem(result.Reason);
+            return ValidationProblem(result.Reason);
         }
 
         return Accepted();

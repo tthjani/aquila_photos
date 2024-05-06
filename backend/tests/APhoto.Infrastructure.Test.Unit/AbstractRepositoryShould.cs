@@ -68,7 +68,10 @@ namespace APhoto.Infrastructure.Test.Unit
 
             // Assert
             result.Should().NotBeNull();
-            result!.Id.Should().Be(id);
+            result.IsFailure.Should().BeFalse();
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().NotBeNull();
+            result!.Value!.Id.Should().Be(id);
         }
 
         [Theory, AutoData]
@@ -81,11 +84,14 @@ namespace APhoto.Infrastructure.Test.Unit
                 It.IsAny<CancellationToken>());
 
             // Assert
-            result.Should().BeNull();
+            result.Should().NotBeNull();
+            result.IsFailure.Should().BeTrue();
+            result.IsSuccess.Should().BeFalse();
+            result.Value.Should().BeNull();
         }
 
         [Theory, AutoData]
-        public async Task GetOneAsync_ShouldThrowException_WhenMoreThanOneElmentWasFound(
+        public async Task GetOneAsync_ShouldReturnFailure_WhenMoreThanOneElmentWasFound(
             string value)
         {
             // Arrange
@@ -107,12 +113,13 @@ namespace APhoto.Infrastructure.Test.Unit
             await _dbContext.SaveChangesAsync();
 
             // Act
-            var result = async () => { 
-                await _repository.GetOneAsync(x => x.Value == value, It.IsAny<CancellationToken>());
-            };
+            var result = await _repository.GetOneAsync(x => x.Value == value, It.IsAny<CancellationToken>());
 
             // Assert
-            await result.Should().ThrowAsync<InvalidOperationException>();
+            result.IsSuccess.Should().BeFalse();
+            result.IsFailure.Should().BeTrue();
+            result.Value.Should().BeNull();
+            result.Reason.Should().NotBeEmpty();
         }
 
         [Theory, AutoData]
@@ -124,10 +131,11 @@ namespace APhoto.Infrastructure.Test.Unit
             await _dbContext.SaveChangesAsync();
 
             // Act
-            var result = _repository.GetMany(x => x.Value != null);
+            var result = _repository.GetManyAsync(x => x.Value != null, It.IsAny<CancellationToken>());
 
             // Assert
-            result.Any().Should().BeTrue();
+            var resultList = await result.ToListAsync();
+            resultList.Any().Should().BeTrue();
         }
 
         [Theory, AutoData]
@@ -140,10 +148,11 @@ namespace APhoto.Infrastructure.Test.Unit
             await _dbContext.SaveChangesAsync();
 
             // Act
-            var result = _repository.GetMany(x => x.Id == id);
+            var result = _repository.GetManyAsync(x => x.Id == id, It.IsAny<CancellationToken>());
 
             // Assert
-            result.Any().Should().BeFalse();
+            var resultList = await result.ToListAsync();
+            resultList.Any().Should().BeFalse();
         }
 
         [Theory, AutoData]

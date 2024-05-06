@@ -2,25 +2,41 @@
 
 namespace APhoto.Data;
 
-public class APhotosContext : DbContext
+public class APhotosContext(DbContextOptions<APhotosContext> options) : DbContext(options)
 {
-    public APhotosContext(DbContextOptions<APhotosContext> options) : base(options)
-    {
-    }
-
-    public DbSet<Order> Orders { get; set; }
-    public DbSet<Gallery> Galleries { get; set; }
-    public DbSet<Holiday> Holidays { get; set; }
-    public DbSet<AcceptedOrder> AcceptedOrders { get; set; }
-    public DbSet<Announcement> Announcements { get; set; }
-    public DbSet<FinishedOrder> FinishedOrders { get; set; }
-    public DbSet<DeclinedOrder> DeclinedOrders { get; set; }
+    public DbSet<Order> Order { get; set; }
+    
+    // Below Datasets are commented, because they're not required to be deployed in the database, their schema isn't properly planned yet
+    //public DbSet<Gallery> Gallery { get; set; }
+    //public DbSet<Holiday> Holiday { get; set; }
+    //public DbSet<Announcement> Announcement { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AcceptedOrder>().ToTable("AcceptedOrders");
-        modelBuilder.Entity<DeclinedOrder>().ToTable("DeclinedOrders");
-        modelBuilder.Entity<FinishedOrder>().ToTable("FinishedOrders");
+        modelBuilder.Entity<Order>()
+            .HasKey(o => o.OrderId);
+        modelBuilder.Entity<Order>()
+            .Property(p => p.CreatedAt)
+            .HasDefaultValueSql("GETUTCDATE()")
+            .IsRequired();
+        modelBuilder.Entity<Order>()
+            .Property(p => p.OrderType)
+            .IsRequired();
+        modelBuilder.Entity<Order>()
+            .Property(p => p.ClientName)
+            .IsRequired();
+        modelBuilder.Entity<Order>()
+            .Property(p => p.ContactInformation)
+            .IsRequired();
+        modelBuilder.Entity<Order>()
+            .Property(p => p.FbUrl)
+            .IsRequired();
+        modelBuilder.Entity<Order>()
+            .Property(p => p.Message)
+            .IsRequired();
+        modelBuilder.Entity<Order>()
+            .Property(p => p.OrderStatus)
+            .IsRequired();
 
         base.OnModelCreating(modelBuilder);
     }

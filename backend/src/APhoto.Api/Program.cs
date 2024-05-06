@@ -20,9 +20,6 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddScoped<IAbstractRepository<Order>, OrdersRepository>();
-builder.Services.AddScoped<IAbstractRepository<AcceptedOrder>, AcceptedOrdersRepository>();
-builder.Services.AddScoped<IAbstractRepository<DeclinedOrder>, DeclinedOrdersRepository>();
-builder.Services.AddScoped<IAbstractRepository<FinishedOrder>, FinishedOrdersRepository>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 
 var app = builder.Build();
