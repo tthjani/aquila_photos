@@ -1,22 +1,27 @@
 ﻿using APhoto.Api.Requests;
+using APhoto.Common.Repositories;
 using APhoto.Data;
-using APhoto.Infrastructure;
 using APhoto.Infrastructure.Utility;
 using AutoMapper;
 
 namespace APhoto.Api.Services
 {
-    public class HolidayService(IMapper mapper, IAbstractRepository<Holiday> holidayRepository) : IHolidayService
+    public class HolidayService(IMapper mapper, IHolidayRepository holidayRepository) : IHolidayService
     {
         private readonly IMapper _mapper = mapper;
-        private readonly IAbstractRepository<Holiday> _holidayRepository = holidayRepository;
+        private readonly IHolidayRepository _holidayRepository = holidayRepository;
 
         public IAsyncEnumerable<Holiday> GetHolidays(CancellationToken cancellationToken)
-            => _holidayRepository.GetManyAsync(holiday => holiday.StartDate >= DateTime.UtcNow, cancellationToken);
+            => _holidayRepository.GetAllAsync(cancellationToken);
 
         public async Task<IServiceResult> CreateHoliday(AddHolidayRequestV1 request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<Holiday>(request);
+
+            if (_holidayRepository.IsEntityOverlapping(entity))
+            {
+                return ServiceResult.Fail("The given holiday has an overlap with an already existing holiday.");
+            }
 
             var result = await _holidayRepository.CreateAsync(entity, cancellationToken);
 
@@ -44,6 +49,11 @@ namespace APhoto.Api.Services
             holidayEntity.EndDate = request.EndDate;
             holidayEntity.Comment = request.Comment;
             holidayEntity.AllowOrders = request.AllowOrders;
+
+            if (_holidayRepository.IsEntityOverlapping(holidayEntity))
+            {
+                return ServiceResult.Fail("The given holiday has an overlap with an already existing holiday.");
+            }
 
             var result = await _holidayRepository.UpdateAsync(holidayEntity, cancellationToken);
 

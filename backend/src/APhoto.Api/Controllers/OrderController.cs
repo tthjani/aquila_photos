@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace APhoto.Api.Controllers;
 
 [ApiController]
-[Route("/api/[controller]/[action]")]
 public class OrderController : CustomControllerBase<OrderController>
 {
     private readonly IOrdersService _ordersService;
