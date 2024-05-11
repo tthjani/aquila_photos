@@ -1,5 +1,6 @@
 ﻿using APhoto.Common.Repositories;
 using APhoto.Data;
+using APhoto.Infrastructure.Utility;
 
 namespace APhoto.Common.Test.Unit.Repositories
 {
@@ -70,6 +71,60 @@ namespace APhoto.Common.Test.Unit.Repositories
 
             // Assert
             result.Should().Throw<ArgumentNullException>();
+        }
+
+        [Theory]
+        [InlineAutoData(false, false)]
+        [InlineAutoData(true, true)]
+        public void IsDateInAnActiveHoliday_ShouldReturnCorrectValue_WhenInHolidayInterval(
+            bool checkIfOrderCreationIsAllowed,
+            bool expectedResult)
+        {
+            // Arrange
+            var date = _holidayStartDate.AddDays(1);
+
+            // Act
+            var result = _holidayRepository.IsDateInAnActiveHoliday(date, checkIfOrderCreationIsAllowed);
+
+            // Assert
+            result.Should().Be(expectedResult);
+        }
+
+        [Fact]
+        public async Task IsDateInAnActiveHoliday_ShouldReturnTrue_WhenInHolidayIntervalAndHolidayIsOneDayLong()
+        {
+            // Arrange
+            var day = _faker.Date.Recent().ClearTime();
+            var holiday = new Holiday
+            {
+                HolidayId = (uint)_faker.Random.Int(1),
+                StartDate = day,
+                EndDate = day
+            };
+            await _dbContext.Set<Holiday>().AddAsync(holiday);
+            await _dbContext.SaveChangesAsync();
+
+            // Act
+            var result = _holidayRepository.IsDateInAnActiveHoliday(day);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineAutoData(false)]
+        [InlineAutoData(true)]
+        public void IsDateInAnActiveHoliday_ShouldReturnFalse_WhenNotInHolidayInterval(
+            bool checkIfOrderCreationIsAllowed)
+        {
+            // Arrange
+            var date = _holidayEndDate.AddDays(1);
+
+            // Act
+            var result = _holidayRepository.IsDateInAnActiveHoliday(date, checkIfOrderCreationIsAllowed);
+
+            // Assert
+            result.Should().BeFalse();
         }
     }
 }
