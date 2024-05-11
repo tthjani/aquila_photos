@@ -123,6 +123,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GetHolidays",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ServiceUrl}}/api/Holiday/GetAllHolidays",
+							"host": [
+								"{{ServiceUrl}}"
+							],
+							"path": [
+								"api",
+								"Holiday",
+								"GetAllHolidays"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -130,116 +149,210 @@
 			"name": "Send",
 			"item": [
 				{
-					"name": "AddOrder",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"OrderType\": \"Test order type\",\r\n    \"ClientName\": \"John Doe\",\r\n    \"ContactInformation\": \".fancydiscordname\",\r\n    \"FbUrl\": \"https://face.gta.world/johndoe\",\r\n    \"Message\": \"Test message\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Order",
+					"item": [
+						{
+							"name": "AddOrder",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"OrderType\": \"Test order type\",\r\n    \"ClientName\": \"John Doe\",\r\n    \"ContactInformation\": \".fancydiscordname\",\r\n    \"FbUrl\": \"https://face.gta.world/johndoe\",\r\n    \"Message\": \"Test message\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ServiceUrl}}/api/Order/AddOrder",
+									"host": [
+										"{{ServiceUrl}}"
+									],
+									"path": [
+										"api",
+										"Order",
+										"AddOrder"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{ServiceUrl}}/api/Order/AddOrder",
-							"host": [
-								"{{ServiceUrl}}"
-							],
-							"path": [
-								"api",
-								"Order",
-								"AddOrder"
-							]
+						{
+							"name": "AcceptOrder",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"OrderId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ServiceUrl}}/api/Order/AcceptOrder",
+									"host": [
+										"{{ServiceUrl}}"
+									],
+									"path": [
+										"api",
+										"Order",
+										"AcceptOrder"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeclineOrder",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"OrderId\": 3,\r\n    \"Reason\": \"You are crazy to think, I'm going to make that piece of crap.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ServiceUrl}}/api/Order/DeclineOrder",
+									"host": [
+										"{{ServiceUrl}}"
+									],
+									"path": [
+										"api",
+										"Order",
+										"DeclineOrder"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FinishOrder",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"OrderId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ServiceUrl}}/api/Order/FinishOrder",
+									"host": [
+										"{{ServiceUrl}}"
+									],
+									"path": [
+										"api",
+										"Order",
+										"FinishOrder"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "AcceptOrder",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"OrderId\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Holiday",
+					"item": [
+						{
+							"name": "AddHoliday",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"StartDate\": \"2024-05-13T11:09:16.385Z\",\r\n  \"EndDate\": \"2024-05-15T11:09:16.385Z\",\r\n  \"Comment\": null,\r\n  \"AllowOrders\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ServiceUrl}}/api/Holiday/AddHoliday",
+									"host": [
+										"{{ServiceUrl}}"
+									],
+									"path": [
+										"api",
+										"Holiday",
+										"AddHoliday"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{ServiceUrl}}/api/Order/AcceptOrder",
-							"host": [
-								"{{ServiceUrl}}"
-							],
-							"path": [
-								"api",
-								"Order",
-								"AcceptOrder"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DeclineOrder",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"OrderId\": 3,\r\n    \"Reason\": \"You are crazy to think, I'm going to make that piece of crap.\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "UpdateHoliday",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"HolidayId\": 1,\r\n  \"StartDate\": \"2024-05-18T11:09:16.385Z\",\r\n  \"EndDate\": \"2024-05-20T11:09:16.385Z\",\r\n  \"Comment\": null,\r\n  \"AllowOrders\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ServiceUrl}}/api/Holiday/UpdateHoliday",
+									"host": [
+										"{{ServiceUrl}}"
+									],
+									"path": [
+										"api",
+										"Holiday",
+										"UpdateHoliday"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{ServiceUrl}}/api/Order/DeclineOrder",
-							"host": [
-								"{{ServiceUrl}}"
-							],
-							"path": [
-								"api",
-								"Order",
-								"DeclineOrder"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "FinishOrder",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"OrderId\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "RemoveHoliday",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"HolidayId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ServiceUrl}}/api/Holiday/RemoveHoliday",
+									"host": [
+										"{{ServiceUrl}}"
+									],
+									"path": [
+										"api",
+										"Holiday",
+										"RemoveHoliday"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "{{ServiceUrl}}/api/Order/FinishOrder",
-							"host": [
-								"{{ServiceUrl}}"
-							],
-							"path": [
-								"api",
-								"Order",
-								"FinishOrder"
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		}
