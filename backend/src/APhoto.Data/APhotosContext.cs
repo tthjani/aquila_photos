@@ -44,10 +44,12 @@ public class APhotosContext(DbContextOptions<APhotosContext> options) : DbContex
             .HasKey(k => k.HolidayId);
         modelBuilder.Entity<Holiday>()
             .Property(p => p.StartDate)
-            .IsRequired();
+            .IsRequired()
+            .HasColumnType("date");
         modelBuilder.Entity<Holiday>()
             .Property(p => p.EndDate)
-            .IsRequired();
+            .IsRequired()
+            .HasColumnType("date");
         modelBuilder.Entity<Holiday>()
             .Property(p => p.AllowOrders)
             .IsRequired()

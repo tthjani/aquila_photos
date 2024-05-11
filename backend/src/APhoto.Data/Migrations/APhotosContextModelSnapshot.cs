@@ -40,10 +40,10 @@ namespace APhoto.Data.Migrations
                         .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.HasKey("HolidayId");
 
