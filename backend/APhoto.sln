@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APhoto.Infrastructure.Test.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APhoto.Settings", "src\APhoto.Settings\APhoto.Settings.csproj", "{236E4BAA-0F9F-497A-8F0E-C4E511E410F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APhoto.Common.Test.Unit", "APhoto.Common.Test.Unit\APhoto.Common.Test.Unit.csproj", "{A623E4F4-3B6E-435D-80CD-1B3727BBD09E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APhoto.Common.Test.Unit", "tests\APhoto.Common.Test.Unit\APhoto.Common.Test.Unit.csproj", "{A623E4F4-3B6E-435D-80CD-1B3727BBD09E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
