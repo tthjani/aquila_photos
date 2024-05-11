@@ -3,6 +3,7 @@
 namespace APhoto.Api.Controllers
 {
     [ApiController]
+    [Route("/api/[controller]/[action]")]
     public class CustomControllerBase<T> : ControllerBase
         where T : CustomControllerBase<T>
     {

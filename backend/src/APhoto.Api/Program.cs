@@ -31,7 +31,7 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 builder.Services.AddScoped<IAbstractRepository<Order>, OrdersRepository>();
-builder.Services.AddScoped<IAbstractRepository<Holiday>, HolidayRepository>();
+builder.Services.AddScoped<IHolidayRepository, HolidayRepository>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<IHolidayService, HolidayService>();
 
