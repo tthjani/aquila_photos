@@ -26,5 +26,11 @@ namespace APhoto.Common.Repositories
             || ((entity.StartDate <= holiday.StartDate)
                     && (entity.EndDate < holiday.EndDate && entity.EndDate > holiday.StartDate)));
         }
+
+        public bool IsDateInAnActiveHoliday(DateTime date, bool checkIfOrderCreationIsAllowed = true)
+        {
+            return _context.Set<Holiday>().Any(holiday =>
+            date >= holiday.StartDate && date <= holiday.EndDate && (checkIfOrderCreationIsAllowed && !holiday.AllowOrders));
+        }
     }
 }

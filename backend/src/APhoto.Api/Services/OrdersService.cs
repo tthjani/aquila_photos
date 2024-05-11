@@ -1,5 +1,6 @@
 ﻿using APhoto.Api.Requests;
 using APhoto.Common;
+using APhoto.Common.Repositories;
 using APhoto.Data;
 using APhoto.Infrastructure;
 using APhoto.Infrastructure.Utility;
@@ -7,18 +8,14 @@ using AutoMapper;
 
 namespace APhoto.Api.Services
 {
-    public class OrdersService : IOrdersService
+    public class OrdersService(
+        IMapper mapper,
+        IAbstractRepository<Order> ordersRepository,
+        IHolidayRepository holidayRepository) : IOrdersService
     {
-        private readonly IMapper _mapper;
-        private readonly IAbstractRepository<Order> _ordersRepository;
-
-        public OrdersService(
-            IMapper mapper,
-            IAbstractRepository<Order> ordersRepository)
-        {
-            _mapper = mapper;
-            _ordersRepository = ordersRepository;
-        }
+        private readonly IMapper _mapper = mapper;
+        private readonly IAbstractRepository<Order> _ordersRepository = ordersRepository;
+        private readonly IHolidayRepository _holidayRepository = holidayRepository;
 
         public IAsyncEnumerable<Order> GetOrdersAsync(CancellationToken cancellationToken)
             => _ordersRepository.GetManyAsync(order => order.OrderStatus == OrderStatus.Created.ToString(), cancellationToken);
@@ -27,6 +24,11 @@ namespace APhoto.Api.Services
         {
             try
             {
+                if (_holidayRepository.IsDateInAnActiveHoliday(DateTime.Today))
+                {
+                    return ServiceResult.Fail("Creating new order is currently not allowed.");
+                }
+                
                 var entity = _mapper.Map<Order>(request);
                 entity.OrderStatus = OrderStatus.Created.ToString();
 
