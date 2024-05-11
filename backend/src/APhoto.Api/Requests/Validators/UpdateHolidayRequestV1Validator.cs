@@ -12,11 +12,11 @@ namespace APhoto.Api.Requests.Validators
             RuleFor(x => x.StartDate)
                 .NotEmpty()
                 .GreaterThanOrEqualTo(DateTime.Today)
-                .LessThan(x => x.EndDate);
+                .LessThanOrEqualTo(x => x.EndDate);
 
             RuleFor(x => x.EndDate)
                 .NotEmpty()
-                .GreaterThan(x => x.StartDate);
+                .GreaterThanOrEqualTo(x => x.StartDate);
 
             RuleFor(x => x.Comment)
                 .MaximumLength(250);
