@@ -36,6 +36,7 @@
     <Using Include="AutoFixture.Xunit2" />
     <Using Include="Bogus" />
     <Using Include="FluentAssertions" />
+    <Using Include="Microsoft.EntityFrameworkCore" />
     <Using Include="Moq" />
     <Using Include="Xunit" />
   </ItemGroup>
