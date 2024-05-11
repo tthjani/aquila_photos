@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APhoto.Data.Migrations
 {
     [DbContext(typeof(APhotosContext))]
-    [Migration("20240507095543_AddHolidayTable")]
+    [Migration("20240511144928_AddHolidayTable")]
     partial class AddHolidayTable
     {
         /// <inheritdoc />
@@ -43,10 +43,10 @@ namespace APhoto.Data.Migrations
                         .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.HasKey("HolidayId");
 

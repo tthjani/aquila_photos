@@ -17,8 +17,8 @@ namespace APhoto.Data.Migrations
                 {
                     HolidayId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "date", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "date", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     AllowOrders = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
