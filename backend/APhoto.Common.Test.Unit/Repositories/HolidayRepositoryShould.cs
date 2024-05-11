@@ -24,8 +24,8 @@ namespace APhoto.Common.Test.Unit.Repositories
             var holiday = new Holiday
             {
                 HolidayId = (uint)_faker.Random.Int(1),
-                StartDate = new DateTime(2024, 5, 5),
-                EndDate = new DateTime(2024, 5, 10)
+                StartDate = _holidayStartDate,
+                EndDate = _holidayEndDate
             };
             _dbContext.Holiday.Add(holiday);
             _dbContext.SaveChanges();
@@ -41,6 +41,8 @@ namespace APhoto.Common.Test.Unit.Repositories
         [InlineAutoData(1, -1, true)]
         [InlineAutoData(-3, -6, false)]
         [InlineAutoData(6, 16, false)]
+        [InlineAutoData(3, -2, true)]
+        [InlineAutoData(6, 1, false)]
         public void IsEntityOverlapping_ShouldReturnCorrectValue(
             int startDateOffset,
             int endDateOffset,

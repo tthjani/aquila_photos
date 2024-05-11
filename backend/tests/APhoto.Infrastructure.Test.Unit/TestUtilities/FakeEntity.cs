@@ -1,4 +1,4 @@
-﻿namespace APhoto.Infrastructure.Test.Unit.Utility
+﻿namespace APhoto.Infrastructure.Test.Unit.TestUtilities
 {
     public class FakeEntity
     {

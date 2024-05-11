@@ -1,7 +1,7 @@
-﻿using APhoto.Infrastructure.Test.Unit.Utility;
+﻿using APhoto.Infrastructure.Test.Unit.TestUtilities;
 using ServiceResultNs = APhoto.Infrastructure.Utility;
 
-namespace APhoto.Infrastructure.Test.Unit.ServiceResult
+namespace APhoto.Infrastructure.Test.Unit.Utility
 {
     public class ServiceResultShould
     {
