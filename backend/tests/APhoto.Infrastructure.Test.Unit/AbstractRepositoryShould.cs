@@ -1,5 +1,4 @@
 ﻿using APhoto.Infrastructure.Test.Unit.Utility;
-using Microsoft.EntityFrameworkCore;
 
 namespace APhoto.Infrastructure.Test.Unit
 {
